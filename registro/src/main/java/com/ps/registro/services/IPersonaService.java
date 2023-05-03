@@ -5,4 +5,10 @@ import com.ps.registro.modelo.Persona;
 public interface IPersonaService  {
 
     Persona guardar(Persona persona) throws Exception;
+
+    Persona consultar(Long id)throws Exception;
+
+    Persona actualizar(Persona persona)throws Exception;
+
+    void borrar(Long id)throws Exception;
 }

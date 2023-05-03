@@ -3,7 +3,6 @@ package com.ps.registro.controller;
 import com.ps.registro.modelo.Persona;
 import com.ps.registro.modelo.dto.ResponseErrorDTO;
 import com.ps.registro.services.IPersonaService;
-import com.ps.registro.services.PersonaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +21,25 @@ public class PersonaController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Persona> consultar (@PathVariable("id") Long id) {
-        Persona persona = new Persona();
-        persona.setId(id);
-        return ResponseEntity.ok(persona);
+    public ResponseEntity<?> consultar(@PathVariable("id") Long id) {
+        try {
+            Persona resultado=  iPersonaService.consultar(id);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(resultado);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getCause() + "", e.getMessage()));
+        }
+
     }
 
     @PostMapping("/")
     public ResponseEntity<?> guardar(@RequestBody Persona persona) {
         try {
             Persona resultado=  iPersonaService.guardar(persona);
-            logger.info(resultado+"");
+
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resultado);
@@ -42,16 +49,33 @@ public class PersonaController {
         }
 
     }
+
     @PutMapping("/")
-    public ResponseEntity<Persona> actualizar(@RequestBody Persona persona) {
-        return ResponseEntity.ok(persona);
+    public ResponseEntity<?> actualizar(@RequestBody Persona persona) {
+        try {
+            Persona resultado=  iPersonaService.actualizar(persona);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(resultado);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getCause() + "", e.getMessage()));
+        }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Persona> borrar(@PathVariable("id") Long id) {
-        Persona persona = new Persona();
-        persona.setId(id);
-        return ResponseEntity.ok(persona);
+    @DeleteMapping ("/{id}")
+    public ResponseEntity<?> borrar(@PathVariable("id") Long id) {
+        try {
+             iPersonaService.borrar(id);
+
+            return ResponseEntity
+                    .ok().build();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getCause() + "", e.getMessage()));
+        }
     }
 
 }

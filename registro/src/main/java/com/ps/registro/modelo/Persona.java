@@ -1,5 +1,6 @@
 package com.ps.registro.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 @Table
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Persona {
 
     @Id
@@ -22,8 +24,8 @@ public class Persona {
     @Column(name="apellidos", nullable=false, length=100)
     private String apellidos;
 
-    @Column(name="fechaNacimiento", nullable=false)
-    private Date fechaNacimiento;
+    @Column(name="fecha_nacimiento", nullable=false)
+    private Date fecha_nacimiento;
 
     @Column(name="telefono", length=20)
     private String telefono;

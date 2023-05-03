@@ -4,7 +4,7 @@ CREATE TABLE Persona
     identificacion  VARCHAR(20)  NOT NULL,
     nombres         VARCHAR(100) NOT NULL,
     apellidos       VARCHAR(100) NOT NULL,
-    fechaNacimiento DATE         NOT NULL,
+    fecha_nacimiento DATE         NOT NULL,
     telefono        VARCHAR(20),
     correo          VARCHAR(100)
 );
