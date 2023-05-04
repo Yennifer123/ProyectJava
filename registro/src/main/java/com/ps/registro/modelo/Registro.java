@@ -19,6 +19,6 @@ public class Registro {
 
     @ManyToOne
     @JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
-    private Persona persona_id;
+    private Persona persona;
 
 }

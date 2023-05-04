@@ -11,7 +11,8 @@ CREATE TABLE Persona
 
 CREATE TABLE Registro
 (
-    id         SERIAL PRIMARY KEY,
+    id        SERIAL PRIMARY KEY,
     registro   DATE NOT NULL,
     persona_id INT  NOT NULL REFERENCES Persona (id)
+
 );
